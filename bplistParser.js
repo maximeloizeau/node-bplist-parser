@@ -2,7 +2,6 @@
 
 // adapted from http://code.google.com/p/plist/source/browse/trunk/src/com/dd/plist/BinaryPropertyListParser.java
 
-var fs = require('fs');
 var bigInt = require("big-integer");
 var debug = false;
 
@@ -34,10 +33,7 @@ var parseFile = exports.parseFile = function (fileNameOrBuffer, callback) {
   if (Buffer.isBuffer(fileNameOrBuffer)) {
     return tryParseBuffer(fileNameOrBuffer);
   } else {
-    fs.readFile(fileNameOrBuffer, function (err, data) {
-      if (err) { return callback(err); }
-      tryParseBuffer(data);
-    });
+    return callback(new Error('Not a buffer'), null);
   }
 };
 
